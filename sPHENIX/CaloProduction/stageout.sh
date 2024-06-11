@@ -5,8 +5,8 @@ destination=${2}
 
 echo stageout ${filename} ${destination} start `date`
 
-regex_dsttype_run="(DST_[A-Z_]+[a-z0-9]+)_([a-z0-9]+)_(202[345]p[0-9][0-9][0-9])-([0-9]+)-([0-9]+)"
-regex_dsttype_range="(DST_[A-Z_]+[a-z0-9]+)_([a-z0-9]+)_(202[345]p[0-9][0-9][0-9])-([0-9]+)-([0-9]+)-([0-9]+)"
+regex_dsttype_run="([A-Z]+_[A-Z_]+[a-z0-9]+)_([a-z0-9]+)_(202[345]p[0-9][0-9][0-9])-([0-9]+)-([0-9]+)"
+regex_dsttype_range="([A-Z]+_[A-Z_]+[a-z0-9]+)_([a-z0-9]+)_(202[345]p[0-9][0-9][0-9])-([0-9]+)-([0-9]+)-([0-9]+)"
 
 # decode filename
 base=${filename/.root/}
@@ -45,8 +45,8 @@ nevents_=$( root.exe -q -b GetEntries.C\(\"${filename}\"\) | awk '/Number of Ent
 nevents=${nevents_:--1}
 
 # prodtype is required... specifies whether the production status entry manages a single output file (only) or many output files (many).
-echo ./cups.py -r ${runnumber} -s ${segment} -d ${dstname}  stageout ${filename} ${destination} --dsttype ${dsttype} --dataset ${build}_${dbtag} --nevents ${nevents} --inc --prodtype many
-     ./cups.py -r ${runnumber} -s ${segment} -d ${dstname}  stageout ${filename} ${destination} --dsttype ${dsttype} --dataset ${build}_${dbtag} --nevents ${nevents} --inc --prodtype many
+echo ./cups.py -r ${runnumber} -s ${segment} -d ${dstname}  stageout ${filename} ${destination} --dsttype ${dsttype} --dataset ${build}_${dbtag} --nevents ${nevents} --inc --prodtype only
+     ./cups.py -r ${runnumber} -s ${segment} -d ${dstname}  stageout ${filename} ${destination} --dsttype ${dsttype} --dataset ${build}_${dbtag} --nevents ${nevents} --inc --prodtype only
 
 
 echo stageout ${filename} ${destination} finish `date`

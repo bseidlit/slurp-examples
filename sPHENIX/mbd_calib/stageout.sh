@@ -2,6 +2,10 @@
 
 filename=`basename ${1}`   # must be a local file
 destination=${2}
+rename=${3:-${filename}}
+
+mv ${filename} ${rename}
+filename=${rename}
 
 echo stageout ${filename} ${destination} start `date`
 
